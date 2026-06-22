@@ -1334,11 +1334,11 @@ export async function processJsonDataAsync(
     }
     console.log(`Found ${segmentTypes.size} segment types:`, Array.from(segmentTypes))
 
-    // Remove "By Region" (and similar) from segment types - these are geography dimensions, not segments
-    segmentTypes.delete('By Region')
+    // Keep "By Region" as a real segment type so countries appear as selectable segments.
+    // Remove only pure internal geography keys that should never appear in the segment dropdown.
     segmentTypes.delete('By State')
     segmentTypes.delete('By Country')
-    console.log(`Segment types after removing geography types:`, Array.from(segmentTypes))
+    console.log(`Segment types after removing internal geography types:`, Array.from(segmentTypes))
 
     // Filter out geographies that only exist in segmentation structure but have no actual data
     // in value/volume files (e.g., "Global" when only region/country-level data exists)
@@ -1395,10 +1395,11 @@ export async function processJsonDataAsync(
       await new Promise(resolve => setImmediate(resolve))
     }
 
-    // Process "By Region" data separately for geography-based records
-    // These records are NOT added to segment types but provide data for region/country geographies
-    const geoSegmentTypes = ['By Region', 'By State', 'By Country']
+    // Process geography-only segment types (By State, By Country) for geography-based records.
+    // Skip any that were already processed as regular segment types to avoid duplicate records.
+    const geoSegmentTypes = ['By State', 'By Country']
     for (const geoSegType of geoSegmentTypes) {
+      if (segmentTypes.has(geoSegType)) continue // already processed above
       // Check if this geo segment type exists in the structure data
       const hasGeoSegType = Object.values(structureData).some(
         (geo: any) => geo && typeof geo === 'object' && geo[geoSegType]
@@ -1472,9 +1473,9 @@ export async function processJsonDataAsync(
     
     // Build metadata
     const metadata: Metadata = {
-      market_name: 'Normothermic Machine Perfusion Market',
+      market_name: 'Hydraulic Fracturing Market',
       market_type: 'Market Analysis',
-      industry: 'Healthcare & Pharmaceuticals',
+      industry: 'Oil & Gas',
       years: allYears,
       start_year: startYear,
       base_year: baseYear,
@@ -1483,7 +1484,7 @@ export async function processJsonDataAsync(
       forecast_years: allYears.filter(y => y > historicalEndYear),
       currency: 'USD',
       value_unit: 'Million',
-      volume_unit: 'Million Units',
+      volume_unit: 'Thousand Stages',
       has_value: valueRecords.length > 0,
       has_volume: volumeRecords.length > 0,
     }

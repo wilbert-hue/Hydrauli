@@ -377,7 +377,7 @@ export function filterData(
         // Leaf record - include it unless its parent is already included as an aggregated record
         if (selectedLevel1Segments.length > 0) {
           if (isRegionalSegmentType) {
-            const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East & Africa', 'Middle East', 'Africa', 'ASEAN', 'SAARC Region', 'CIS Region', 'Global']
+            const regionalGeographies = ['North America', 'South America', 'Global']
             const selectedAreGeographies = selectedLevel1Segments.some(seg => regionalGeographies.includes(seg))
             const selectedAreSegments = selectedLevel1Segments.some(seg => !regionalGeographies.includes(seg))
 
@@ -969,11 +969,8 @@ export function prepareGroupedBarData(
 
         // Region to countries mapping for parent geography aggregation
         const regionToCountriesStacked: Record<string, string[]> = {
-          'North America': ['U.S.', 'Canada'],
-          'Europe': ['U.K.', 'Germany', 'Italy', 'France', 'Spain', 'Russia', 'Rest of Europe'],
-          'Asia Pacific': ['China', 'India', 'Japan', 'South Korea', 'ASEAN', 'Australia', 'Rest of Asia Pacific'],
-          'Latin America': ['Brazil', 'Argentina', 'Mexico', 'Rest of Latin America'],
-          'Middle East & Africa': ['GCC', 'South Africa', 'Rest of Middle East & Africa']
+          'North America': ['United States', 'Canada'],
+          'South America': ['Brazil', 'Mexico', 'Argentina', 'Rest of South America']
         }
 
         records.forEach(record => {
@@ -1274,11 +1271,8 @@ export function prepareLineChartData(
         // Lines represent geographies (aggregate across segments)
         // Map child geographies to their parent if parent is selected
         const regionToCountriesLine: Record<string, string[]> = {
-          'North America': ['U.S.', 'Canada'],
-          'Europe': ['U.K.', 'Germany', 'Italy', 'France', 'Spain', 'Russia', 'Rest of Europe'],
-          'Asia Pacific': ['China', 'India', 'Japan', 'South Korea', 'ASEAN', 'Australia', 'Rest of Asia Pacific'],
-          'Latin America': ['Brazil', 'Argentina', 'Mexico', 'Rest of Latin America'],
-          'Middle East & Africa': ['GCC', 'South Africa', 'Rest of Middle East & Africa']
+          'North America': ['United States', 'Canada'],
+          'South America': ['Brazil', 'Mexico', 'Argentina', 'Rest of South America']
         }
 
         let mappedGeo = record.geography

@@ -19,32 +19,24 @@ export function getTopRegionsByMarketValue(
 ): string[] {
   if (!data) return []
 
-  // Get all value data records
-  const records = data.data.value.geography_segment_matrix
+  // Only consider actual regions (not countries or Global)
+  const regionSet = new Set(data.dimensions.geographies.regions)
 
-  // Calculate total market value by geography for the specified year
-  // Treat all geographies as single entities - aggregate by name
+  const records = data.data.value.geography_segment_matrix
   const geographyTotals = new Map<string, number>()
 
   records.forEach((record: DataRecord) => {
     const geography = record.geography
     const value = record.time_series[year] || 0
-
-    // Skip global level
-    if (geography === 'Global') return
-
-    // Treat all geographies as single entities - aggregate by name
+    if (!regionSet.has(geography)) return
     const currentTotal = geographyTotals.get(geography) || 0
     geographyTotals.set(geography, currentTotal + value)
   })
 
-  // Sort geographies by total value and get top N
-  const sortedGeographies = Array.from(geographyTotals.entries())
-    .sort((a, b) => b[1] - a[1]) // Sort by value descending
+  return Array.from(geographyTotals.entries())
+    .sort((a, b) => b[1] - a[1])
     .slice(0, topN)
     .map(([geography]) => geography)
-
-  return sortedGeographies
 }
 
 /**
@@ -110,20 +102,15 @@ export function getTopRegionsByCAGR(
 ): string[] {
   if (!data) return []
 
-  // Get all value data records
-  const records = data.data.value.geography_segment_matrix
+  // Only consider actual regions (not countries or Global)
+  const regionSet = new Set(data.dimensions.geographies.regions)
 
-  // Calculate average CAGR for each geography
-  // Treat all geographies as single entities - aggregate by name
+  const records = data.data.value.geography_segment_matrix
   const geographyCAGRs = new Map<string, number[]>()
 
   records.forEach((record: DataRecord) => {
     const geography = record.geography
-
-    // Skip global level
-    if (geography === 'Global') return
-
-    // Treat all geographies as single entities - aggregate by name
+    if (!regionSet.has(geography)) return
     if (record.cagr !== undefined && record.cagr !== null) {
       const cagrs = geographyCAGRs.get(geography) || []
       cagrs.push(record.cagr)
@@ -131,19 +118,14 @@ export function getTopRegionsByCAGR(
     }
   })
 
-  // Calculate average CAGR for each geography
-  const avgCAGRs = Array.from(geographyCAGRs.entries()).map(([geography, cagrs]) => ({
-    geography,
-    avgCAGR: cagrs.reduce((a, b) => a + b, 0) / cagrs.length
-  }))
-
-  // Sort geographies by average CAGR and get top N
-  const sortedGeographies = avgCAGRs
-    .sort((a, b) => b.avgCAGR - a.avgCAGR) // Sort by CAGR descending
+  return Array.from(geographyCAGRs.entries())
+    .map(([geography, cagrs]) => ({
+      geography,
+      avgCAGR: cagrs.reduce((a, b) => a + b, 0) / cagrs.length
+    }))
+    .sort((a, b) => b.avgCAGR - a.avgCAGR)
     .slice(0, topN)
     .map(item => item.geography)
-
-  return sortedGeographies
 }
 
 /**
@@ -158,20 +140,18 @@ export function getTopCountriesByCAGR(
 ): string[] {
   if (!data) return []
 
-  // Get all value data records
-  const records = data.data.value.geography_segment_matrix
+  // Only consider countries (not regions or Global)
+  const regionSet = new Set(data.dimensions.geographies.regions)
+  const allCountries = Object.values(data.dimensions.geographies.countries).flat()
+  const countrySet = new Set(allCountries)
 
-  // Calculate average CAGR for each geography
-  // Treat all geographies as single entities - aggregate by name
+  const records = data.data.value.geography_segment_matrix
   const geographyCAGRs = new Map<string, number[]>()
 
   records.forEach((record: DataRecord) => {
     const geography = record.geography
-
-    // Skip global level
-    if (geography === 'Global') return
-
-    // Treat all geographies as single entities - aggregate by name
+    // Only include actual countries, not regions or Global
+    if (!countrySet.has(geography) || regionSet.has(geography)) return
     if (record.cagr !== undefined && record.cagr !== null) {
       const cagrs = geographyCAGRs.get(geography) || []
       cagrs.push(record.cagr)
@@ -179,19 +159,14 @@ export function getTopCountriesByCAGR(
     }
   })
 
-  // Calculate average CAGR for each geography
-  const avgCAGRs = Array.from(geographyCAGRs.entries()).map(([geography, cagrs]) => ({
-    geography,
-    avgCAGR: cagrs.reduce((a, b) => a + b, 0) / cagrs.length
-  }))
-
-  // Sort geographies by average CAGR and get top N
-  const sortedGeographies = avgCAGRs
-    .sort((a, b) => b.avgCAGR - a.avgCAGR) // Sort by CAGR descending
+  return Array.from(geographyCAGRs.entries())
+    .map(([geography, cagrs]) => ({
+      geography,
+      avgCAGR: cagrs.reduce((a, b) => a + b, 0) / cagrs.length
+    }))
+    .sort((a, b) => b.avgCAGR - a.avgCAGR)
     .slice(0, topN)
     .map(item => item.geography)
-
-  return sortedGeographies
 }
 
 /**

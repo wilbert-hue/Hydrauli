@@ -1,62 +1,105 @@
 {
   "Global": {
-    "By Type": {
-      "Sub-Normothermic Perfusion (20–34°C)": {},
-      "Warm or Normothermic Perfusion (35–37°C)": {}
+    "By Offering": {
+      "Products": {
+        "Frac Pumping Equipment": {
+          "Frac Pump Units": {},
+          "Pump Fluid Ends": {},
+          "Pump Power Ends": {},
+          "Pump-Mounted Components": {}
+        },
+        "High-Pressure Fluid Conveyance and Flow-Control Equipment": {
+          "Flowlines": {},
+          "Treating Iron": {},
+          "Frac Manifolds": {},
+          "Manifold Skids": {},
+          "Plug Valves": {},
+          "Gate Valves": {},
+          "Check Valves": {},
+          "Choke Valves": {},
+          "Pressure-Relief Valves": {},
+          "Swivel Joints": {},
+          "Others (Pup Joints, Integral Fittings, Hose Loops, High-Pressure Connectors, etc.)": {}
+        },
+        "Fluid Preparation Equipment": {
+          "Blenders": {},
+          "Hydration Units": {},
+          "Chemical-Additive Units": {},
+          "Mixing Tanks": {}
+        },
+        "Proppant Handling Equipment": {
+          "Sand Storage Systems": {},
+          "Sand Conveyance Systems": {},
+          "Proppant Feeding Systems": {}
+        },
+        "Wellhead and Downhole Completion Equipment": {
+          "Frac Trees": {},
+          "Frac Plugs": {},
+          "Sliding Sleeves": {},
+          "Packers": {},
+          "Perforating Systems": {},
+          "Isolation Tools": {}
+        },
+        "Water Management Equipment": {
+          "Water Storage Equipment": {},
+          "Water Treatment Equipment": {},
+          "Water Recycling Equipment": {},
+          "Water Transfer Infrastructure": {}
+        },
+        "Monitoring and Control Products": {
+          "Sensors": {},
+          "Data Acquisition Hardware": {},
+          "Control Panels": {},
+          "Monitoring Hardware": {},
+          "Embedded Control Software": {}
+        },
+        "Other Hydraulic Fracturing Products (Proppants, Base Fracturing Fluids, Chemical Additives, etc.)": {}
+      },
+      "Services": {
+        "Hydraulic Fracturing Execution Services": {},
+        "Fracture Design and Engineering Services": {},
+        "Wireline, Perforating and Plug-Setting Services": {},
+        "Proppant Logistics and Wellsite Handling Services": {},
+        "Flowback, Well Testing and Cleanup Services": {},
+        "Equipment Rental and Leasing Services": {},
+        "Inspection, Maintenance, Repair and Refurbishment Services": {},
+        "Other Hydraulic Fracturing Services (Digital Monitoring and Optimization Services, Water Management Services)": {}
+      }
     },
-    "By Organ Type": {
-      "Liver": {},
-      "Heart": {},
-      "Lung": {},
-      "Kidney": {},
-      "Others (Pancreas, Small bowel / Intestine, Composite Tissues / Limb Perfusion (emerging use cases))": {}
+    "By Sales Channel": {
+      "OEM": {},
+      "Aftermarket": {}
     },
-    "Application / Use Case": {
-      "Organ Preservation": {},
-      "Viability Assessment": {},
-      "Physiologic Transport": {},
-      "Reconditioning Marginal Organs": {},
-      "Others (Research Use / Protocol development)": {}
+    "By Well Orientation": {
+      "Horizontal Wells": {},
+      "Vertical Wells": {}
+    },
+    "By Reservoir Type": {
+      "Shale Oil": {},
+      "Tight Oil": {},
+      "Shale Gas": {},
+      "Tight Gas": {},
+      "Coalbed Methane": {},
+      "Conventional Oil and Gas Reservoirs": {},
+      "Other Unconventional Reservoirs": {}
     },
     "By End User": {
-      "Hospitals & Clinics": {},
-      "Specialty Clinic/Centers": {},
-      "Transplant Centers": {},
-      "Others (Research Institutes/Centers, Organ Procurement Organizations, etc.)": {}
+      "Oil and Gas E&P Operators": {},
+      "Pressure-Pumping and Fracturing Service Providers": {},
+      "Equipment Rental and Fleet Operators": {},
+      "Equipment OEMs and System Integrators": {},
+      "Oilfield Equipment Distributors": {}
     },
     "By Region": {
       "North America": {
-        "U.S.": {},
+        "United States": {},
         "Canada": {}
       },
-      "Europe": {
-        "U.K.": {},
-        "Germany": {},
-        "Italy": {},
-        "France": {},
-        "Spain": {},
-        "Russia": {},
-        "Rest of Europe": {}
-      },
-      "Asia Pacific": {
-        "China": {},
-        "India": {},
-        "Japan": {},
-        "South Korea": {},
-        "ASEAN": {},
-        "Australia": {},
-        "Rest of Asia Pacific": {}
-      },
-      "Latin America": {
+      "South America": {
         "Brazil": {},
-        "Argentina": {},
         "Mexico": {},
-        "Rest of Latin America": {}
-      },
-      "Middle East & Africa": {
-        "GCC": {},
-        "South Africa": {},
-        "Rest of Middle East & Africa": {}
+        "Argentina": {},
+        "Rest of South America": {}
       }
     }
   }
